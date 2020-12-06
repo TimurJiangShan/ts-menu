@@ -1,0 +1,6 @@
+.menuContainer {
+  width: 1000px;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+}
