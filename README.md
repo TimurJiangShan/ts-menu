@@ -15,9 +15,11 @@ Project Folder and demo
 
 ![Alt text](https://github.com/TimurJiangShan/NodeJS/blob/master/Screen%20Shot%202020-12-07%20at%2012.34.08%20am.png)<br>
 
-<img src="https://github.com/TimurJiangShan/NodeJS/blob/master/first-app/Overview.png" width="500" alt="Pics" /><br>
+<img src="https://github.com/TimurJiangShan/NodeJS/blob/master/Screen%20Shot%202020-12-07%20at%2012.34.08%20am.png" width="500" alt="Pics" /><br>
 
-<img src="https://github.com/TimurJiangShan/NodeJS/blob/master/first-app/NextedMenu.png" width="300" alt="Pics" /><br>
+<img src="https://github.com/TimurJiangShan/NodeJS/blob/master/first-app/Overview.png" width="1000" alt="Pics" /><br>
+
+<img src="https://github.com/TimurJiangShan/NodeJS/blob/master/first-app/NextedMenu.png" width="500" alt="Pics" /><br>
 
 Instruction
 ----
