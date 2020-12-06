@@ -1,7 +1,8 @@
 import React from "react";
-import { Menu } from "antd";
+import { Menu,message } from "antd";
 import "./style.css";
 import { TextContext } from "../context";
+import { JSON_FORMAT_ERROR } from "../InputText";
 
 const { SubMenu } = Menu;
 
@@ -77,11 +78,16 @@ const CustomerMenu: React.FC<{}> = () => {
   const { text } = React.useContext(TextContext);
 
   React.useEffect(() => {
-    if (!text) {
-      setMenuData(treeData);
-    } else {
-      setMenuData(JSON.parse(text));
+    try{
+      if (!text) {
+        setMenuData(treeData);
+      } else {
+        setMenuData(JSON.parse(text));
+      }
+    }catch (e){
+       message.error(JSON_FORMAT_ERROR);
     }
+    
   }, [text]);
 
   const renderMenu = React.useCallback((data: Array<TreeData>|TreeData) => {

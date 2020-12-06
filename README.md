@@ -10,13 +10,18 @@ Overview
 6. The website can show error message when the username or password is incorrect.
 7. Testing is in the ``./src/LoginForm/__tests__ ``folder
 
-Project Folder
+Project Folder and demo
 ----
+
 ![Alt text](https://github.com/TimurJiangShan/NodeJS/blob/master/Screen%20Shot%202020-12-07%20at%2012.34.08%20am.png)<br>
+
+<img src="https://github.com/TimurJiangShan/NodeJS/blob/master/first-app/Overview.png" width="500" alt="Pics" /><br>
+
+<img src="https://github.com/TimurJiangShan/NodeJS/blob/master/first-app/NextedMenu.png" width="300" alt="Pics" /><br>
 
 Instruction
 ----
-####1. Download the project and enter the project
+#### 1. Download the project and enter the project
 ```
 git clone https://github.com/TimurJiangShan/ts-menu
 cd ts-menu
@@ -28,13 +33,13 @@ cd ts-menu
 yarn install
 ```
 
-####2. Start the backend server
+#### 2. Start the backend server
 Using the following command to start the server
 ```
 nodemon server.js
 ```
 The backend runs on the ``http://localhost:8000``
-####3. Start the frontend server
+#### 3. Start the frontend server
 1. Go to the project source code folder dictionary where ``package.json`` exists as Step1 mentioned.
 2. Using following command 
 ```
@@ -42,5 +47,5 @@ yarn start
 ```
 You will find the frontend running on the ``localhost:3000``
 
-####NOTE
+#### NOTE
 Make sure the ``port`` 3000 and 8000 is available.

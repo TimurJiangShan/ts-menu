@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginForm, { LOGIN_ERROR_MESSAGE } from '..'
-import {getByText,fireEvent,render,act, queryAllByText, queryByAltText, waitFor, getByPlaceholderText} from '@testing-library/react'
+import {fireEvent,render,act,  waitFor} from '@testing-library/react'
 import axios from 'axios'
 
 jest.mock('axios')
@@ -27,16 +27,16 @@ describe('UI TEST SUIT',()=>{
 
 describe('Login API TEST SUIT',()=>{
   afterEach(()=>{
-    mockedAxios.mockReset()
+    mockedAxios.post.mockReset()
   })
   it('API -  ERROR: no username && password',async()=>{
 const expectedResult={
 }
-mockedAxios.post.getMockImplementation(()=>Promise.resolve(expectedResult))
-    const { getByText } = render(<LoginForm/>)
+  mockedAxios.post.mockImplementationOnce(()=>Promise.resolve(expectedResult))
+  const { getByText } = render(<LoginForm/>)
 
 
-   await  waitFor(()=>{
+  await  waitFor(()=>{
       fireEvent.click(getByText('Log in'))
       fireEvent.click(getByText('Login'))
     })
@@ -55,7 +55,7 @@ mockedAxios.post.getMockImplementation(()=>Promise.resolve(expectedResult))
   }
   mockedAxios.post.mockImplementationOnce(() =>
     Promise.resolve(successResult))
-    const { debug,getByText,getByPlaceholderText } = render(<LoginForm/>)
+    const { debug , getByText, getByPlaceholderText } = render(<LoginForm/>)
       await  waitFor(()=>{
           fireEvent.click(getByText('Log in'))
         })
@@ -65,17 +65,8 @@ mockedAxios.post.getMockImplementation(()=>Promise.resolve(expectedResult))
           fireEvent.change(username,{target:{value:'admin'}})
           fireEvent.change(password,{target:{value:'password'}})
         })
-        fireEvent.click(getByText('Login'))
-        // debug(null,300000)  
+        await  fireEvent.click(getByText('Login'))
         expect(mockedAxios.post).toHaveBeenCalled()
         expect(mockedAxios.post).toBeCalledWith( "http://localhost:8000/user/login",{"password": "password", "username": "admin"})
       })
-    
-
 })
-
-
-// {
-//   code: 400,
-//   msg: "Username or password error",
-// }

@@ -5,7 +5,7 @@ import { treeData } from "../CustomerMenu";
 import "./style.css";
 
 const { TextArea } = Input;
-
+export const JSON_FORMAT_ERROR="Oops, your input is not a required json format."
 const InputText: React.FC<{}> = () => {
   const { setText } = React.useContext(TextContext);
   const [textInput, setTextInput] = React.useState("");
@@ -14,7 +14,7 @@ const InputText: React.FC<{}> = () => {
     try {
       setText(_text);
     } catch (e) {
-      message.error("Oops, your input is not a json format.");
+      message.error(JSON_FORMAT_ERROR);
     }
   };
 
