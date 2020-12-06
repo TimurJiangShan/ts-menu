@@ -1,10 +1,7 @@
 import * as React from "react";
-import Menu from './components/Menu';
+import HomePage from "./HomePage";
+import "antd/dist/antd.css";
 
 export default function App() {
-  return (
-    <div>
-      <Menu />
-    </div>
-  );
+  return <HomePage />;
 }

@@ -1,6 +1,5 @@
-.menuContainer {
-  width: 1000px;
-  height: 800px;
-  display: flex;
-  justify-content: center;
+.menu-container {
+  background: white;
+  margin: 10px;
+  border-bottom: 1px solid transparent;
 }

@@ -1,6 +1,10 @@
-.loginContainer {
+.login-container {
   width: 500px;
   height: 400px;
   display: flex;
   flex-direction: column;
+}
+
+.login-button {
+  background: #00cec9;
 }
