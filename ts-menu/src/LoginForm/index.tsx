@@ -3,8 +3,8 @@ import { Input, Button, Form, Modal, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import axios from "axios";
 
-
 export const SERVER_URL= 'http://localhost:8000'
+
 const LoginForm: React.FC<{}> = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
