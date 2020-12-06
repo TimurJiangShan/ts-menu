@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 export const SERVER_URL= 'http://localhost:8000'
-
+export const LOGIN_ERROR_MESSAGE ='Login Failed'
 const LoginForm: React.FC<{}> = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,22 +13,21 @@ const LoginForm: React.FC<{}> = () => {
 
   const handleLogin = useCallback(async (_username: string, _password: string) => {
     try{
-      await axios
+      const result=await axios
       .post( new URL("/user/login" ,SERVER_URL).href
         , {
         username: _username,
         password: _password,
       })
-      .then((res: any) => {
-        if ( res.data.code === 200) {
+
+        if ( result.data.code === 200) {
           message.success("Login Success");
         } else {
-          message.error("Login Failed");
+          message.error(LOGIN_ERROR_MESSAGE);
         }
-      });
     }catch(e){
       console.log(e)
-      message.error("Login Failed");
+      message.error(LOGIN_ERROR_MESSAGE);
     }
   },[]);
 
@@ -44,10 +43,10 @@ const LoginForm: React.FC<{}> = () => {
   return (
     <div className="login-container">
       <Button type="primary" onClick={()=> setModalVisible(true)} className="login-button">
-        Login
+        Log in
       </Button>
       <Modal
-        title="Login"
+        title="Please login"
         visible={modalVisible}
         onOk={onSubmit}
         okText="Login"

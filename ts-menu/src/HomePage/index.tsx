@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import CustomerMenu from "../CustomerMenu";
 import LoginForm from "../LoginForm";
 import "./style.css";
