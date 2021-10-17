@@ -1,8 +1,8 @@
 import React from "react";
-import { Menu,message } from "antd";
-import "./style.css";
-import { TextContext } from "../context";
+import { Menu, message } from "antd";
+import { TextContext } from "../context/text-context";
 import { JSON_FORMAT_ERROR } from "../InputText";
+import styled from "@emotion/styled";
 
 const { SubMenu } = Menu;
 
@@ -10,7 +10,7 @@ type TreeData = {
   key: string;
   title: string;
   children?: Array<TreeData>;
-}
+};
 
 export const treeData: [TreeData] = [
   {
@@ -65,32 +65,32 @@ export const treeData: [TreeData] = [
   },
 ];
 
-
-function checkTextType(_text:TreeData|Array<TreeData>):Array<TreeData>{
-  if( _text instanceof Array){ 
-    return _text as Array<TreeData>
+function checkTextType(_text: TreeData | Array<TreeData>): Array<TreeData> {
+  if (_text instanceof Array) {
+    return _text as Array<TreeData>;
   }
-  return [_text] as Array<TreeData>
+  return [_text] as Array<TreeData>;
 }
 
 const CustomerMenu: React.FC<{}> = () => {
-  const [menuData, setMenuData] = React.useState< Array<TreeData>|TreeData>([]);
+  const [menuData, setMenuData] = React.useState<Array<TreeData> | TreeData>(
+    []
+  );
   const { text } = React.useContext(TextContext);
 
   React.useEffect(() => {
-    try{
+    try {
       if (!text) {
         setMenuData(treeData);
       } else {
         setMenuData(JSON.parse(text));
       }
-    }catch (e){
-       message.error(JSON_FORMAT_ERROR);
+    } catch (e) {
+      message.error(JSON_FORMAT_ERROR);
     }
-    
   }, [text]);
 
-  const renderMenu = React.useCallback((data: Array<TreeData>|TreeData) => {
+  const renderMenu = React.useCallback((data: Array<TreeData> | TreeData) => {
     return checkTextType(data).map((item: TreeData) => {
       if (item.children) {
         return (
@@ -104,21 +104,20 @@ const CustomerMenu: React.FC<{}> = () => {
           {item.title}
         </Menu.Item>
       );
-    }
-    )}
-  ,[])
+    });
+  }, []);
 
   return (
-    <div>
-      <Menu
-        className="menu-container"
-        triggerSubMenuAction="click"
-        mode="horizontal"
-      >
-        {renderMenu(menuData)}
-      </Menu>
-    </div>
+    <StyledMenu triggerSubMenuAction="click" mode="horizontal">
+      {renderMenu(menuData)}
+    </StyledMenu>
   );
 };
+
+const StyledMenu = styled(Menu)`
+  background: white;
+  margin: 10px;
+  border-bottom: 1px solid transparent;
+`;
 
 export default CustomerMenu;

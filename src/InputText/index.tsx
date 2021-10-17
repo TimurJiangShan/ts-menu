@@ -1,11 +1,13 @@
 import React from "react";
 import { Button, Col, Input, message, Row } from "antd";
-import { TextContext } from "../context";
+import { TextContext } from "../context/text-context";
 import { treeData } from "../CustomerMenu";
-import "./style.css";
+import styled from "@emotion/styled";
 
 const { TextArea } = Input;
-export const JSON_FORMAT_ERROR="Oops, your input is not a required json format."
+export const JSON_FORMAT_ERROR =
+  "Oops, your input is not a required json format.";
+
 const InputText: React.FC<{}> = () => {
   const { setText } = React.useContext(TextContext);
   const [textInput, setTextInput] = React.useState("");
@@ -19,34 +21,49 @@ const InputText: React.FC<{}> = () => {
   };
 
   return (
-    <div>
-      <h1>Please input JSON the same format as right side</h1>
+    <Container>
+      <h1 id="title">Please input JSON the same format as right side</h1>
       <Row>
-        <Col span={12}>
+        <ColContainer span={8}>
           <TextArea
+            role="textarea-input"
             rows={20}
             cols={5}
             onChange={(e) => setTextInput(e.target.value)}
           />
-        </Col>
-        <Col span={12}>
+        </ColContainer>
+        <ColContainer span={8}>
           <TextArea
             disabled={true}
+            role="textarea-output"
             rows={20}
             cols={5}
             value={JSON.stringify(treeData, null, 4)}
           />
-        </Col>
+        </ColContainer>
       </Row>
-      <Button
+      <SubmitButton
         className="submit-button"
         onClick={() => submitText(textInput)}
         type="primary"
+        role="submit-button"
       >
         Submit
-      </Button>
-    </div>
+      </SubmitButton>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  padding: 24px;
+`;
+
+const ColContainer = styled(Col)`
+  margin: 12px;
+`;
+
+const SubmitButton = styled(Button)`
+  margin-top: 24px;
+`;
 
 export default InputText;
