@@ -8,6 +8,10 @@ Router.post("/login", (req, res) => {
     return res.json({
       code: 200,
       msg: "Login Success",
+      data: {
+        name: "admin",
+        token: "token1234567890",
+      },
     });
   } else {
     return res.json({

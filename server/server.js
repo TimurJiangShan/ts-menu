@@ -15,7 +15,7 @@ app.all("*", function (req, res, next) {
 
 app.use(
   "/api",
-  createProxyMiddleware({ target: "http:localhost:8000", changeOrigin: true })
+  createProxyMiddleware({ target: "http://localhost:8000", changeOrigin: true })
 );
 
 app.use(bodyParser.urlencoded({ extended: false }));
