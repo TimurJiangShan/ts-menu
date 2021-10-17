@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -16,8 +18,10 @@
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.6",
     "mockjs": "^1.1.0",
+    "qs": "^6.10.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "testing-library": "^0.0.2",
@@ -27,7 +31,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test  --coverage",
+    "test": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },
@@ -54,6 +58,7 @@
     "@commitlint/cli": "^13.2.1",
     "@commitlint/config-conventional": "^13.2.0",
     "@types/node": "^14.14.10",
+    "@types/qs": "^6.9.7",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^8.3.0",
     "husky": ">=6",
