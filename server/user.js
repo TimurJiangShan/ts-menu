@@ -20,4 +20,15 @@ Router.post("/login", (req, res) => {
     });
   }
 });
+
+Router.post("/register", (req, res) => {
+  return res.json({
+    code: 200,
+    msg: "Register Success",
+    data: {
+      name: "admin",
+      token: "token1234567890",
+    },
+  });
+});
 module.exports = Router;
