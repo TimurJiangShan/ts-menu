@@ -31,12 +31,55 @@ describe("UI TEST SUIT", () => {
   });
 });
 
-describe("INPUT FUNCTION TEST SUIT", () => {
+describe("Textarea test suit", () => {
+  const buildLoginForm = () => {
+    return {
+      textareaInput: "123",
+    };
+  };
+
   it("Title label has been rendered", () => {
     render(<InputText />);
     const titleLabel = screen.getByText(
       "Please input JSON the same format as right side"
     );
     expect(titleLabel).toBeTruthy();
+  });
+
+  it("Textarea input can enter strings", () => {
+    render(<InputText />);
+    const { textareaInput } = buildLoginForm();
+
+    userEvent.type(screen.getByRole("textarea-input"), textareaInput);
+    expect(screen.getByText(textareaInput)).toBeInTheDocument();
+  });
+});
+
+describe("Submit button test suit", () => {
+  const buildLoginForm = () => {
+    return {
+      textareaInput: "123",
+    };
+  };
+
+  it("Submit button called when click it", () => {
+    const handleSubmit = jest.fn();
+    render(<InputText onSubmission={handleSubmit} />);
+    const { textareaInput } = buildLoginForm();
+
+    userEvent.type(screen.getByRole("textarea-input"), textareaInput);
+    userEvent.click(screen.getByRole("submit-button"));
+
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it("Submit button called when input is not valid", () => {
+    const handleSubmit = jest.fn();
+    render(<InputText onSubmission={handleSubmit} />);
+
+    userEvent.type(screen.getByRole("textarea-input"), "");
+    userEvent.click(screen.getByRole("submit-button"));
+
+    expect(handleSubmit).toHaveBeenCalledTimes(0);
   });
 });

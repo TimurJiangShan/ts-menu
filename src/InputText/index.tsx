@@ -3,18 +3,29 @@ import { Button, Col, Input, message, Row } from "antd";
 import { TextContext } from "../context/text-context";
 import { treeData } from "../CustomerMenu";
 import styled from "@emotion/styled";
+import { isVoid } from "../utils/index";
+
+interface InputTextProps {
+  onSubmission?: () => void;
+}
 
 const { TextArea } = Input;
 export const JSON_FORMAT_ERROR =
   "Oops, your input is not a required json format.";
 
-const InputText: React.FC<{}> = () => {
+const InputText: React.FC<InputTextProps> = (props: InputTextProps) => {
   const { setText } = React.useContext(TextContext);
   const [textInput, setTextInput] = React.useState("");
+  const { onSubmission } = props;
 
   const submitText = (_text: string) => {
     try {
-      setText(_text);
+      if (!isVoid(_text)) {
+        setText(_text);
+        onSubmission && onSubmission();
+      } else {
+        throw Error;
+      }
     } catch (e) {
       message.error(JSON_FORMAT_ERROR);
     }
