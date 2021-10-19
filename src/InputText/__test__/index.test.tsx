@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import InputText from "../index";
+import InputText, { JSON_FORMAT_ERROR } from "../index";
 
 describe("UI TEST SUIT", () => {
   it("Title label has been rendered", () => {
@@ -73,7 +73,7 @@ describe("Submit button test suit", () => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
 
-  it("Submit button called when input is not valid", () => {
+  it("Submit button called when input is invalid", () => {
     const handleSubmit = jest.fn();
     render(<InputText onSubmission={handleSubmit} />);
 
@@ -81,5 +81,15 @@ describe("Submit button test suit", () => {
     userEvent.click(screen.getByRole("submit-button"));
 
     expect(handleSubmit).toHaveBeenCalledTimes(0);
+  });
+
+  it("Error message shows when the input is invalid", () => {
+    const handleSubmit = jest.fn();
+    render(<InputText onSubmission={handleSubmit} />);
+
+    userEvent.type(screen.getByRole("textarea-input"), "");
+    userEvent.click(screen.getByRole("submit-button"));
+
+    expect(screen.getAllByText(JSON_FORMAT_ERROR)).toBeTruthy();
   });
 });
