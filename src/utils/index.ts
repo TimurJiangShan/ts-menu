@@ -43,7 +43,6 @@ export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
 };
 
 export const cleanObject = (object: KeyValueObject) => {
-  // Object.assign({}, object)
   const result = { ...object };
   Object.keys(result).forEach((key) => {
     const value = result[key];
