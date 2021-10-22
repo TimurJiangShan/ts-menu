@@ -2,21 +2,13 @@
 
 ## Overview
 
-1. A nested menu on the left side(Default).
-2. User can type the JSON in the input with given format(By clicking the submitting button).
-3. By clicking login button, the website will pop a modal with a login form.
+1. Register and Login
+2. User can type the text in the input with given format(By clicking the submitting button).
+3. By clicking menu on the header, you can see the nested menus as you want
 4. Input the username(default is 'admin'), password(default is 'password'),clicking Login, it can send the form data to a fake endpoint.
-5. Clicking cancel can back to your previous menu.
-6. The website can show error message when the username or password is incorrect.
-7. Testing is in the `./src/LoginForm/__tests__ `folder
-
-## Project Folder and demo
-
-<img src="https://github.com/TimurJiangShan/NodeJS/blob/master/Screen%20Shot%202020-12-07%20at%2012.34.08%20am.png" height="300" alt="Pics" /><br>
-
-<img src="https://github.com/TimurJiangShan/NodeJS/blob/master/first-app/Overview.png" width="1000" alt="Pics" /><br>
-
-<img src="https://github.com/TimurJiangShan/NodeJS/blob/master/first-app/NextedMenu.png" width="500" alt="Pics" /><br>
+5. The website can show error message when the username or password is incorrect.
+6. Click the hi button b on the right side of the header, you can log out
+7. Unit test is in the `./src/CustomerMenu/__tests__ `, `./src/HomePage/__tests__ `, `./src/InputText/__tests__ `, `./src/utils/__tests__ ` folder. Test coverage in the above folder is 100%.
 
 ## Instruction
 
@@ -53,7 +45,7 @@ The backend runs on the `http://localhost:8000`
 npm run start
 ```
 
-You will find the frontend running on the `localhost:3000`
+The frontend runs on the `localhost:3000`
 
 #### NOTE
 
