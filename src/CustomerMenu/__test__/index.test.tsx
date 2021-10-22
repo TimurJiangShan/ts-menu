@@ -1,13 +1,10 @@
 import React from "react";
 import CustomerMenu from "..";
-import { act, screen, render } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TextContext } from "../../context/text-context";
-import { JSON_FORMAT_ERROR } from "../../InputText";
 
 describe("UI TEST SUIT", () => {
-  const mocksContext = { text: "", setText: () => "" };
-
   it("Menu has been rendered", () => {
     render(<CustomerMenu />);
     expect(screen.getByRole("menu")).toBeInTheDocument();

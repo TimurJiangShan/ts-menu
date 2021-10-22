@@ -32,7 +32,7 @@ const InputText: React.FC<InputTextProps> = (props: InputTextProps) => {
   };
 
   return (
-    <Container>
+    <Container role="input-text">
       <h1 id="title">Please input JSON the same format as right side</h1>
       <Row>
         <ColContainer span={8}>
