@@ -1,50 +1,55 @@
 import React from "react";
 import CustomerMenu from "..";
-import { act, fireEvent, render } from "@testing-library/react";
+import { act, screen, render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { TextContext } from "../../context/text-context";
+import { JSON_FORMAT_ERROR } from "../../InputText";
 
 describe("UI TEST SUIT", () => {
-  it("Header has been rendered", () => {
-    const { getByText } = render(<CustomerMenu />);
-    expect(getByText("Australia")).toBeInTheDocument();
+  const mocksContext = { text: "", setText: () => "" };
+
+  it("Menu has been rendered", () => {
+    render(<CustomerMenu />);
+    expect(screen.getByRole("menu")).toBeInTheDocument();
   });
 
-  it("Header has been clicked", () => {
-    const { getByText } = render(<CustomerMenu />);
-    act(() => {
-      fireEvent.click(getByText("Australia"));
-    });
+  it("Menu has not been clicked", () => {
+    const handleTest = jest.fn();
+    render(<CustomerMenu onTest={handleTest} />);
 
-    expect(getByText("NSW")).toBeInTheDocument();
-    expect(getByText("QUD")).toBeInTheDocument();
-  });
-
-  it("Context is empty", () => {
-    const mocksContext = { text: "", setText: () => "" };
-    const { getByText } = render(
-      <TextContext.Provider value={mocksContext}>
-        <CustomerMenu />
-      </TextContext.Provider>
-    );
-
-    act(() => {
-      fireEvent.click(getByText("Australia"));
-    });
-
-    expect(getByText("NSW")).toBeInTheDocument();
-    expect(getByText("QUD")).toBeInTheDocument();
+    userEvent.click(screen.getByRole("menu"));
+    expect(handleTest).toHaveBeenCalledTimes(0);
   });
 
   it("Context has value", () => {
-    const mocksContext = {
+    const mockContext = {
       text: JSON.stringify({ key: "0", title: "testLevel1" }),
       setText: () => {},
     };
-    const { getByText } = render(
-      <TextContext.Provider value={mocksContext}>
+    render(
+      <TextContext.Provider value={mockContext}>
         <CustomerMenu />
       </TextContext.Provider>
     );
-    expect(getByText("testLevel1")).toBeInTheDocument();
+    expect(screen.getByText("testLevel1")).toBeInTheDocument();
+  });
+
+  it("Submenu rendered", () => {
+    const mockContext = {
+      text: JSON.stringify({ key: "0", title: "Province" }),
+      setText: () => {},
+    };
+
+    const testFailure = () => {
+      throw Error;
+    };
+
+    render(
+      <TextContext.Provider value={mockContext}>
+        <CustomerMenu onTest={testFailure} />
+      </TextContext.Provider>
+    );
+
+    expect(screen.getByRole("least-menu")).toBeTruthy();
   });
 });

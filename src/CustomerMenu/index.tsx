@@ -3,6 +3,7 @@ import { Menu, message } from "antd";
 import { TextContext } from "../context/text-context";
 import { JSON_FORMAT_ERROR } from "../InputText";
 import styled from "@emotion/styled";
+import { isVoid } from "../utils";
 
 const { SubMenu } = Menu;
 
@@ -11,6 +12,10 @@ type TreeData = {
   title: string;
   children?: Array<TreeData>;
 };
+
+interface CustomerMenuProps {
+  onTest?: () => void;
+}
 
 export const treeData: [TreeData] = [
   {
@@ -65,30 +70,34 @@ export const treeData: [TreeData] = [
   },
 ];
 
-function checkTextType(_text: TreeData | Array<TreeData>): Array<TreeData> {
+const checkTextType = (_text: TreeData | Array<TreeData>): Array<TreeData> => {
   if (_text instanceof Array) {
     return _text as Array<TreeData>;
   }
   return [_text] as Array<TreeData>;
-}
+};
 
-const CustomerMenu: React.FC<{}> = () => {
+const CustomerMenu: React.FC<CustomerMenuProps> = (
+  props: CustomerMenuProps
+) => {
   const [menuData, setMenuData] = React.useState<Array<TreeData> | TreeData>(
     []
   );
   const { text } = React.useContext(TextContext);
+  const { onTest } = props;
 
   React.useEffect(() => {
     try {
-      if (!text) {
-        setMenuData(treeData);
-      } else {
+      if (!isVoid(text)) {
         setMenuData(JSON.parse(text));
+        onTest && onTest();
+      } else {
+        setMenuData(treeData);
       }
     } catch (e) {
       message.error(JSON_FORMAT_ERROR);
     }
-  }, [text]);
+  }, [text, onTest]);
 
   const renderMenu = React.useCallback((data: Array<TreeData> | TreeData) => {
     return checkTextType(data).map((item: TreeData) => {
@@ -100,7 +109,7 @@ const CustomerMenu: React.FC<{}> = () => {
         );
       }
       return (
-        <Menu.Item title={item.title} key={item.key}>
+        <Menu.Item title={item.title} key={item.key} role="least-menu">
           {item.title}
         </Menu.Item>
       );
@@ -108,7 +117,12 @@ const CustomerMenu: React.FC<{}> = () => {
   }, []);
 
   return (
-    <StyledMenu triggerSubMenuAction="click" mode="horizontal">
+    <StyledMenu
+      triggerSubMenuAction="click"
+      mode="horizontal"
+      role="menu"
+      onClick={onTest}
+    >
       {renderMenu(menuData)}
     </StyledMenu>
   );
