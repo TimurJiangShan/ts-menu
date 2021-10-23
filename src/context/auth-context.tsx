@@ -1,10 +1,14 @@
 import * as auth from "../auth-provider";
-import { User } from "../utils/useUsers";
 import React, { ReactNode } from "react";
 import { http } from "../utils/http";
 import { useMount } from "../utils/index";
 import { useAsync } from "../utils/useAsync";
 import { FullPageLoading, FullPageError } from "../components/lib";
+
+export interface User {
+  name: string;
+  token: string;
+}
 
 const AuthContext = React.createContext<
   | {

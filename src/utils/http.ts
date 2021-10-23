@@ -1,4 +1,3 @@
-import { useAuth } from "../context/auth-context";
 import qs from "qs";
 import * as auth from "../auth-provider";
 const apiUrl = "http://localhost:8000";
@@ -16,7 +15,7 @@ export const http = async (
     method: "GET",
     headers: {
       Authorization: token ? `Bearer ${token}` : "",
-      "Content-Type": data ? "application/json" : "",
+      "Content-Type": "application/json",
     },
     ...customConfig,
   };
@@ -32,7 +31,6 @@ export const http = async (
     .then(async (response) => {
       if (response.status === 401) {
         await auth.logout();
-        window.location.reload();
         return Promise.reject({ message: "Please relogin" });
       }
       const data = await response.json();
@@ -42,11 +40,4 @@ export const http = async (
         return Promise.reject(data);
       }
     });
-};
-
-export const useHttp = () => {
-  const { user } = useAuth();
-
-  return (...[endpoint, config]: Parameters<typeof http>) =>
-    http(endpoint, { ...config, token: user?.token });
 };

@@ -1,8 +1,11 @@
-import { User } from "./utils/useUsers";
-
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const localStorageKey = "__auth_provider_token__";
+
+export interface User {
+  name: string;
+  token: string;
+}
 
 export const getToken = () => window.localStorage.getItem(localStorageKey);
 

@@ -28,6 +28,46 @@ test("Http send async request", async () => {
   expect(result).toEqual(mockResult);
 });
 
+test("Http send failure async request", async () => {
+  const endpoint = "test-endpoint";
+  const mockResult = { message: "Please relogin" };
+
+  server.use(
+    rest.get(`${apiUrl}/${endpoint}`, (req, res, ctx) =>
+      res(ctx.status(401), ctx.json(mockResult))
+    )
+  );
+
+  try {
+    await http(endpoint);
+  } catch (error) {
+    expect(error).toEqual(mockResult);
+  }
+});
+
+test("Http send async request with POST", async () => {
+  const endpoint = "test-endpoint";
+  const token = "FAKE_TOKEN";
+  const mockResult = { mockValue: "mock" };
+  let request: any;
+  server.use(
+    rest.post(`${apiUrl}/${endpoint}`, async (req, res, ctx) => {
+      request = req;
+      return res(ctx.json(mockResult));
+    })
+  );
+
+  await http(endpoint, {
+    token,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify(""),
+  });
+  expect(request.headers.get("Authorization")).toBe(`Bearer ${token}`);
+});
+
 test("Add token into header", async () => {
   const token = "FAKE_TOKEN";
   const endpoint = "test-endpoint";
@@ -44,6 +84,23 @@ test("Add token into header", async () => {
 
   await http(endpoint, { token });
   expect(request.headers.get("Authorization")).toBe(`Bearer ${token}`);
+});
+
+test("Http request get 500", async () => {
+  const endpoint = "test-endpoint";
+  const mockResult = { message: "server error" };
+
+  server.use(
+    rest.get(`${apiUrl}/${endpoint}`, (req, res, ctx) =>
+      res(ctx.status(500), ctx.json(mockResult))
+    )
+  );
+
+  try {
+    await http(endpoint);
+  } catch (error) {
+    expect(error).toEqual(mockResult);
+  }
 });
 
 /* Test custom hook useAsync */
