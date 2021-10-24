@@ -29,7 +29,11 @@ export const UnauthenticatedAPP = () => {
           <RegisterScreen onError={setError} />
         )}
         <Divider />
-        <Button type="link" onClick={() => setIsRegistered(!isRegistered)}>
+        <Button
+          role="switch-button"
+          type="link"
+          onClick={() => setIsRegistered(!isRegistered)}
+        >
           {isRegistered
             ? "No Account? Register new account"
             : "Already have account? Login"}

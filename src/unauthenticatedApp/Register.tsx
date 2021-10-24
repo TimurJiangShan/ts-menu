@@ -3,9 +3,6 @@ import { useAuth } from "../context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from "./index";
 
-const apiUrl = process.env.REACT_APP_API_URL;
-console.log(apiUrl);
-
 export const RegisterScreen = (props: { onError: (error: Error) => void }) => {
   const { register } = useAuth();
   const { onError } = props;
@@ -23,7 +20,7 @@ export const RegisterScreen = (props: { onError: (error: Error) => void }) => {
       return;
     }
     try {
-      await register(values);
+      run(register(values));
     } catch (e: any) {
       onError(e);
     }
@@ -35,25 +32,43 @@ export const RegisterScreen = (props: { onError: (error: Error) => void }) => {
         name="username"
         rules={[{ required: true, message: "Please input username" }]}
       >
-        <Input placeholder={"username"} type="text" id={"username"} />
+        <Input
+          data-testid="username"
+          placeholder={"username"}
+          type="text"
+          id={"username"}
+        />
       </Form.Item>
       <Form.Item
         name="password"
         rules={[{ required: true, message: "Please input user password" }]}
       >
-        <Input placeholder="password" type="password" id={"password"} />
+        <Input
+          data-testid="password"
+          placeholder="password"
+          type="password"
+          id={"password"}
+        />
       </Form.Item>
       <Form.Item
         name="cpassword"
         rules={[{ required: true, message: "Please confirm your password" }]}
       >
-        <Input placeholder="password" type="password" id={"cpassword"} />
+        <Input
+          data-testid="cpassword"
+          placeholder="password"
+          type="password"
+          id={"cpassword"}
+        />
       </Form.Item>
       <Form.Item>
-        <LongButton htmlType={"submit"} type="primary">
+        <LongButton role="register-button" htmlType={"submit"} type="primary">
           Register
         </LongButton>
       </Form.Item>
     </Form>
   );
 };
+function run(arg0: any) {
+  throw new Error("Function not implemented.");
+}

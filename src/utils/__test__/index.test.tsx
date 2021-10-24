@@ -169,10 +169,17 @@ test("useAsync to handle async tasks", async () => {
   });
 });
 
-test("custom hook useDebounce", async () => {
+test("Custom hook useDebounce", async () => {
   const {
     result: { all },
   } = renderHook(() => useDebounce("test debounce", 0));
+  await waitFor(() => expect(all[0]).toEqual("test debounce"));
+});
+
+test("Custom hook useDebounce with different parameters", async () => {
+  const {
+    result: { all },
+  } = renderHook(() => useDebounce("test debounce", 1000));
   await waitFor(() => expect(all[0]).toEqual("test debounce"));
 });
 

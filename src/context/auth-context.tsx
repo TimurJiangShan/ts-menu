@@ -9,7 +9,7 @@ export interface User {
   token: string;
 }
 
-const AuthContext = React.createContext<
+export const AuthContext = React.createContext<
   | {
       user: User | null;
       register: (form: AuthForm) => Promise<void>;
