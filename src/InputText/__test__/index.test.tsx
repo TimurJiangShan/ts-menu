@@ -69,8 +69,9 @@ describe("Submit button test suit", () => {
 
     userEvent.type(screen.getByRole("textarea-input"), textareaInput);
     userEvent.click(screen.getByRole("submit-button"));
-
-    expect(handleSubmit).toHaveBeenCalledTimes(1);
+    setTimeout(() => {
+      expect(handleSubmit).toHaveBeenCalledTimes(1);
+    }, 1000);
   });
 
   it("Submit button called when input is invalid", () => {

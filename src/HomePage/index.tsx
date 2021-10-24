@@ -8,7 +8,7 @@ const HomePage: React.FC<{}> = () => {
   const [text, setText] = React.useState("");
   const debouncedText = useDebounce(text, 200);
 
-  useDocumentTitle("Home Page");
+  useDocumentTitle("Home Page", false);
 
   const textValue = {
     text: debouncedText,

@@ -1,7 +1,6 @@
 import * as auth from "../auth-provider";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { http } from "../utils/http";
-import { useMount } from "../utils/index";
 import { useAsync } from "../utils/useAsync";
 import { FullPageLoading, FullPageError } from "../components/lib";
 
@@ -55,9 +54,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const register = (form: AuthForm) => auth.register(form).then(setUser);
   const logout = () => auth.logout().then(() => setUser(null));
 
-  useMount(() => {
+  useEffect(() => {
     run(bootstrapUser());
-  });
+  }, []);
 
   if (isIdle || isLoading) {
     return <FullPageLoading />;
