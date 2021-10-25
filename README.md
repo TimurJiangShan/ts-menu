@@ -47,6 +47,17 @@ npm run start
 
 The frontend runs on the `localhost:3000`
 
+#### 4. Run test
+
+1. Go to the project source code folder dictionary where `package.json` exists as Step1 mentioned.
+2. Using following command
+
+```
+npm run test -- --coverage --watchAll=false
+```
+
+The frontend runs on the `localhost:3000`
+
 #### NOTE
 
 Make sure the `port` 3000 and 8000 is available.
