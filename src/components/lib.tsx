@@ -9,16 +9,10 @@ export const Row = styled.div<{
 }>`
   display: flex;
   align-items: center;
-  justify-content: ${(props) => (props.between ? "space-between" : undefined)};
+  justify-content: space-between;
   > * {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
-    margin-right: ${(props) =>
-      typeof props.gap === "number"
-        ? props.gap + "rem"
-        : props.gap
-        ? "2rem"
-        : undefined};
   }
 `;
 
@@ -32,12 +26,6 @@ const FullPage = styled.div`
 export const FullPageLoading = () => (
   <FullPage>
     <Spin size={"large"} />
-  </FullPage>
-);
-
-export const FullPageError = ({ error }: { error: Error | null }) => (
-  <FullPage>
-    <Typography.Text type={"danger"}>{error?.message}</Typography.Text>
   </FullPage>
 );
 

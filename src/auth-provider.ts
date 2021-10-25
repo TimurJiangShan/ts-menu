@@ -1,6 +1,4 @@
-const apiUrl = process.env.REACT_APP_API_URL;
-
-const localStorageKey = "__auth_provider_token__";
+export const localStorageKey = "__auth_provider_token__";
 
 export interface User {
   name: string;
@@ -9,13 +7,13 @@ export interface User {
 
 export const getToken = () => window.localStorage.getItem(localStorageKey);
 
-export const handleUserResponse = (data: User) => {
-  window.localStorage.setItem(localStorageKey, data.token || "");
+export const handleUserResponse = ({ data }: { data: User }) => {
+  window.localStorage.setItem(localStorageKey, data?.token || "");
   return data;
 };
 
 export const login = (data: { username: string; password: string }) => {
-  return fetch(`${apiUrl}/user/login`, {
+  return fetch(`http://localhost:8000/user/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,7 +29,7 @@ export const login = (data: { username: string; password: string }) => {
 };
 
 export const register = (data: { username: string; password: string }) => {
-  return fetch(`${apiUrl}/user/register`, {
+  return fetch(`http://localhost:8000/user/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

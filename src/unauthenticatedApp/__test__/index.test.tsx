@@ -2,7 +2,14 @@ import React from "react";
 import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UnauthenticatedAPP } from "..";
-import { AuthContext } from "../../context/auth-context";
+import { AuthContext, AuthProvider } from "../../context/auth-context";
+import { AppProviders } from "../../context";
+import { localStorageKey } from "../../auth-provider";
+import { LoginScreen } from "../Login";
+import { useAsync } from "../../utils/useAsync";
+import { renderHook } from "@testing-library/react-hooks";
+import App from "../../App";
+import { AuthenticatedApp } from "../../AuthenticatedApp";
 
 beforeAll(() => {
   jest.spyOn(console, "error").mockImplementation(() => {});
@@ -81,5 +88,50 @@ describe("UI TEST SUIT", () => {
     userEvent.type(screen.getByTestId("password"), "pass1");
     userEvent.type(screen.getByTestId("cpassword"), "pass1");
     userEvent.click(screen.getByRole("register-button"));
+  });
+});
+
+describe("TEST CONTEXT", () => {
+  it("UnauthenticatedAPP component has been rendered", () => {
+    render(<AppProviders children={<UnauthenticatedAPP />} />);
+  });
+
+  it("Test functions within auth-provider", () => {
+    window.localStorage.setItem(localStorageKey, "test-token");
+    render(
+      <AppProviders>
+        <AuthenticatedApp />
+      </AppProviders>
+    );
+  });
+
+  it("Login screen error", () => {
+    try {
+      render(<LoginScreen onError={() => {}} />);
+    } catch (error) {}
+  });
+
+  it("Test error page", () => {
+    const failureState: ReturnType<typeof useAsync> = {
+      stat: "error",
+      data: null,
+      error: null,
+
+      isIdle: false,
+      isLoading: false,
+      isError: true,
+      isSuccess: false,
+
+      run: expect.any(Function),
+      setData: expect.any(Function),
+      setError: expect.any(Function),
+    };
+
+    renderHook(() => useAsync(failureState));
+    render(
+      <AuthProvider>
+        <UnauthenticatedAPP />
+      </AuthProvider>
+    );
   });
 });

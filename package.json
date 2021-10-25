@@ -71,5 +71,14 @@
   "lint-staged": {
     "*.js": "eslint --cache --fix",
     "*.{js,css,md}": "prettier --write"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/serviceWorker.ts",
+      "!src/index.tsx",
+      "!src/react-app-env.d.ts",
+      "!src/App.tsx"
+    ]
   }
 }

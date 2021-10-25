@@ -8,7 +8,7 @@ import { Dropdown, Menu, Button } from "antd";
 
 export const AuthenticatedApp = () => {
   return (
-    <Container role="authenticatedApp">
+    <Container>
       <PageHeader />
       <Main>
         <HomePage />

@@ -10,7 +10,7 @@ export default function App() {
   const { user } = useAuth();
 
   return (
-    <div className="App">
+    <div className="App" data-testid="app-screen">
       <ErrorBoundary fallbackRender={FullPageErrorFallback}>
         <React.Suspense fallback={<FullPageLoading />}>
           {user ? <AuthenticatedApp /> : <UnauthenticatedAPP />}

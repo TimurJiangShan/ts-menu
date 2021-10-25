@@ -2,7 +2,7 @@ import * as auth from "../auth-provider";
 import React, { ReactNode, useEffect } from "react";
 import { http } from "../utils/http";
 import { useAsync } from "../utils/useAsync";
-import { FullPageLoading, FullPageError } from "../components/lib";
+import { FullPageLoading } from "../components/lib";
 
 export interface User {
   name: string;
@@ -28,13 +28,11 @@ interface AuthForm {
 const bootstrapUser = async () => {
   let user = null;
 
-  const token = auth.getToken();
-  console.log(token);
-
-  if (token) {
-    const data = await http("user/login", { token });
-    user = data.user;
-  }
+  // const token = auth.getToken();
+  // if (token) {
+  //   user = data.user;
+  //   const data = await http("user/login", { token }).then(() => {});
+  // }
 
   return user;
 };
@@ -42,10 +40,8 @@ const bootstrapUser = async () => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const {
     data: user,
-    error,
     isLoading,
     isIdle,
-    isError,
     run,
     setData: setUser,
   } = useAsync<User | null>();
@@ -60,10 +56,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   if (isIdle || isLoading) {
     return <FullPageLoading />;
-  }
-
-  if (isError) {
-    return <FullPageError error={error} />;
   }
 
   return (
