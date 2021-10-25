@@ -8,7 +8,7 @@
 4. Input the username(default is 'admin'), password(default is 'password'),clicking Login, it can send the form data to a fake endpoint.
 5. The website can show error message when the username or password is incorrect.
 6. Click the hi button b on the right side of the header, you can log out
-7. Unit test is in the `./src/CustomerMenu/__tests__ `, `./src/HomePage/__tests__ `, `./src/InputText/__tests__ `, `./src/utils/__tests__ ` folder. Test coverage in the above folder is 100%.
+7. Test coverage is 100%.
 
 ## Instruction
 
