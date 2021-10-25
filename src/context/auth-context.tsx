@@ -1,6 +1,5 @@
 import * as auth from "../auth-provider";
 import React, { ReactNode, useEffect } from "react";
-import { http } from "../utils/http";
 import { useAsync } from "../utils/useAsync";
 import { FullPageLoading } from "../components/lib";
 
@@ -27,12 +26,6 @@ interface AuthForm {
 
 const bootstrapUser = async () => {
   let user = null;
-
-  // const token = auth.getToken();
-  // if (token) {
-  //   user = data.user;
-  //   const data = await http("user/login", { token }).then(() => {});
-  // }
 
   return user;
 };

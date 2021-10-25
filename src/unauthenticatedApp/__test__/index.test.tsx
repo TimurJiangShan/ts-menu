@@ -2,7 +2,7 @@ import React from "react";
 import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UnauthenticatedAPP } from "..";
-import { AuthContext, AuthProvider } from "../../context/auth-context";
+import { AuthContext, AuthProvider, useAuth } from "../../context/auth-context";
 import { AppProviders } from "../../context";
 import { localStorageKey } from "../../auth-provider";
 import { LoginScreen } from "../Login";
@@ -10,6 +10,11 @@ import { useAsync } from "../../utils/useAsync";
 import { renderHook } from "@testing-library/react-hooks";
 import App from "../../App";
 import { AuthenticatedApp } from "../../AuthenticatedApp";
+
+interface AuthForm {
+  username: string;
+  password: string;
+}
 
 beforeAll(() => {
   jest.spyOn(console, "error").mockImplementation(() => {});
@@ -131,6 +136,24 @@ describe("TEST CONTEXT", () => {
     render(
       <AuthProvider>
         <UnauthenticatedAPP />
+      </AuthProvider>
+    );
+  });
+
+  it("Test auth context", () => {
+    const testFunc = jest.fn();
+
+    const TestProvider = (onTest: any) => {
+      const { login, logout, register } = useAuth();
+      login({ username: "", password: "" });
+      register({ username: "", password: "" });
+      logout();
+      return <div>test</div>;
+    };
+
+    render(
+      <AuthProvider>
+        <TestProvider onTest={testFunc} />
       </AuthProvider>
     );
   });
