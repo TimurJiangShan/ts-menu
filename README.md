@@ -2,13 +2,25 @@
 
 ## Overview
 
-1. Register and Login
-2. User can type the text in the input with given format(By clicking the submitting button).
-3. By clicking menu on the header, you can see the nested menus as you want
+1. A button in the home page, click it can show the login form.
+2. Click the back, it will back to the previous page.
+3. You can register or simply login using the default account.
 4. Input the username(default is 'admin'), password(default is 'password'),clicking Login, it can send the form data to a fake endpoint.
 5. The website can show error message when the username or password is incorrect.
-6. Click the hi button b on the right side of the header, you can log out
-7. Test coverage is 100%.
+6. After login, User can type the text in the input with given format(By clicking the submit button).
+7. On the left hand side, there is the nested menu, it's content depends on the json array passed.
+8. Click the Log out button on the right side of the header, you can log out
+9. Test coverage is 100%.
+
+## Technical stack
+
+1. React v16.8.6
+2. TypeScript
+3. React testing library
+4. MSW for mocking test
+5. Emotion.js and Antd for the UI library
+6. Prettier and eslint for the code formatter
+7. Lint-staged and commitlint to make the commit message clear.
 
 ## Instruction
 
