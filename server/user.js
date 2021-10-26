@@ -10,7 +10,7 @@ Router.post("/login", (req, res) => {
       msg: "Login Success",
       data: {
         name: "admin",
-        token: "token1234567890",
+        token: "fake_token",
       },
     });
   } else {
@@ -27,7 +27,7 @@ Router.post("/register", (req, res) => {
     msg: "Register Success",
     data: {
       name: "admin",
-      token: "token1234567890",
+      token: "fake_token",
     },
   });
 });
