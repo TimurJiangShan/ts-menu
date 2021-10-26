@@ -20,37 +20,37 @@ interface CustomerMenuProps {
 export const treeData: [TreeData] = [
   {
     key: "0",
-    title: "Australia",
+    title: "Main menu",
     children: [
       {
         key: "6",
-        title: "NSW",
+        title: "sub menu1",
         children: [
           {
             key: "1",
-            title: "Sydney",
+            title: "sub menu2",
             children: [
               {
                 key: "2",
-                title: "Burwood",
+                title: "sub menu3",
               },
               {
                 key: "12",
-                title: "Darlington",
+                title: "sub menu3",
               },
             ],
           },
           {
             key: "123",
-            title: "Newcarsle",
+            title: "sub menu2",
             children: [
               {
                 key: "23",
-                title: "City",
+                title: "sub menu3",
               },
               {
                 key: "1234",
-                title: "Country",
+                title: "sub menu3",
               },
             ],
           },
@@ -58,11 +58,11 @@ export const treeData: [TreeData] = [
       },
       {
         key: "126",
-        title: "QUD",
+        title: "sub menu1",
         children: [
           {
             key: "1003",
-            title: "Brisbane",
+            title: "sub menu2",
           },
         ],
       },
@@ -119,7 +119,7 @@ const CustomerMenu: React.FC<CustomerMenuProps> = (
   return (
     <StyledMenu
       triggerSubMenuAction="click"
-      mode="horizontal"
+      mode="inline"
       role="menu"
       onClick={onTest}
     >
@@ -129,8 +129,9 @@ const CustomerMenu: React.FC<CustomerMenuProps> = (
 };
 
 const StyledMenu = styled(Menu)`
+  width: 30rem;
   background: white;
-  margin: 10px;
+  margin: 12px;
   border-bottom: 1px solid transparent;
 `;
 

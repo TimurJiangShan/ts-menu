@@ -10,34 +10,59 @@ import { useDocumentTitle } from "../utils";
 
 export const UnauthenticatedAPP = () => {
   const [isRegistered, setIsRegistered] = React.useState(false);
+  const [showLogin, setShowLogin] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
   useDocumentTitle("Please login to continue");
+
+  const handleShowLogin = (show: boolean) => {
+    setShowLogin(show);
+  };
 
   return (
     <Container>
       <Header />
       <Background />
-      <ShadowCard>
-        <Title>{isRegistered ? "Please Login" : "Please Register"} </Title>
-        {error ? (
-          <Typography.Text type={"danger"}>{error.message}</Typography.Text>
-        ) : null}
-        {isRegistered ? (
-          <LoginScreen onError={setError} />
-        ) : (
-          <RegisterScreen onError={setError} />
-        )}
-        <Divider />
-        <Button
-          role="switch-button"
-          type="link"
-          onClick={() => setIsRegistered(!isRegistered)}
-        >
-          {isRegistered
-            ? "No Account? Register new account"
-            : "Already have account? Login"}
-        </Button>
-      </ShadowCard>
+      {!showLogin && (
+        <ShadowCard>
+          <Title data-testid="home-title">Home</Title>
+          <Button
+            onClick={() => handleShowLogin(true)}
+            data-testid="show-login-button"
+          >
+            Show Log In Form
+          </Button>
+        </ShadowCard>
+      )}
+      {showLogin && (
+        <ShadowCard>
+          <Title>{isRegistered ? "Please Login" : "Please Register"} </Title>
+
+          {error ? (
+            <Typography.Text type={"danger"}>{error.message}</Typography.Text>
+          ) : null}
+          {isRegistered ? (
+            <LoginScreen onError={setError} />
+          ) : (
+            <RegisterScreen onError={setError} />
+          )}
+          <Divider />
+          <Button
+            role="switch-button"
+            type="link"
+            onClick={() => setIsRegistered(!isRegistered)}
+          >
+            {isRegistered
+              ? "No Account? Register new account"
+              : "Already have account? Login"}
+          </Button>
+          <Button
+            data-testid="back-home-button"
+            onClick={() => handleShowLogin(false)}
+          >
+            Back
+          </Button>
+        </ShadowCard>
+      )}
     </Container>
   );
 };

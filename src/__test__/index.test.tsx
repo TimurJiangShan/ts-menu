@@ -7,6 +7,12 @@ import { AuthenticatedApp } from "../AuthenticatedApp";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import { getToken, login, register } from "../auth-provider";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter,
+} from "react-router-dom";
 
 jest.mock("axios");
 
@@ -28,6 +34,7 @@ describe("UI TEST SUIT", () => {
         <UnauthenticatedAPP />
       </AuthContext.Provider>
     );
+    userEvent.click(screen.getByTestId("show-login-button"));
 
     userEvent.click(screen.getByRole("switch-button"));
 
@@ -54,11 +61,13 @@ describe("UI TEST SUIT", () => {
     };
 
     render(
-      <AuthContext.Provider value={mockContext}>
-        <UnauthenticatedAPP />
-      </AuthContext.Provider>
+      <Router>
+        <AuthContext.Provider value={mockContext}>
+          <UnauthenticatedAPP />
+        </AuthContext.Provider>
+      </Router>
     );
-
+    userEvent.click(screen.getByTestId("show-login-button"));
     userEvent.click(screen.getByRole("switch-button"));
 
     userEvent.type(screen.getByTestId("login-username"), "admin");
@@ -67,13 +76,14 @@ describe("UI TEST SUIT", () => {
     userEvent.click(screen.getByTestId("login-button"));
 
     render(
-      <AuthContext.Provider value={mockContext}>
-        <AuthenticatedApp />
-      </AuthContext.Provider>
+      <Router>
+        <AuthContext.Provider value={mockContext}>
+          <AuthenticatedApp />
+        </AuthContext.Provider>
+      </Router>
     );
 
-    expect(screen.getByText("Hi !")).toBeInTheDocument();
-    userEvent.click(screen.getByText("Hi !"));
+    userEvent.click(screen.getByTestId("logout"));
   });
 });
 
@@ -96,6 +106,7 @@ describe("TEST AUTH PROVIDER", () => {
         <UnauthenticatedAPP />
       </AuthContext.Provider>
     );
+    userEvent.click(screen.getByTestId("show-login-button"));
 
     server.use(
       rest.post("http://localhost:8000/user/login", (req, res, ctx) =>

@@ -4,7 +4,8 @@ import { useAuth } from "./context/auth-context";
 import { Row } from "./components/lib";
 import HomePage from "./HomePage";
 import { ReactComponent as SoftwareLogo } from "./assets/react-logo.svg";
-import { Dropdown, Menu, Button } from "antd";
+import { Button } from "antd";
+import { useHistory } from "react-router-dom";
 
 export const AuthenticatedApp = () => {
   return (
@@ -19,6 +20,11 @@ export const AuthenticatedApp = () => {
 
 const PageHeader = () => {
   const { logout } = useAuth();
+  const history = useHistory();
+  const handleLogout = () => {
+    logout();
+    history.push("/");
+  };
 
   return (
     <Header between={true}>
@@ -30,21 +36,9 @@ const PageHeader = () => {
         />
       </HeaderLeft>
       <HeaderRight>
-        <Dropdown
-          overlay={
-            <Menu>
-              <Menu.Item key={"logout"}>
-                <Button onClick={logout} type={"link"}>
-                  Logout
-                </Button>
-              </Menu.Item>
-            </Menu>
-          }
-        >
-          <Button type={"link"} onClick={(e) => e.preventDefault()}>
-            Hi !
-          </Button>
-        </Dropdown>
+        <Button onClick={handleLogout} type={"link"} data-testid="logout">
+          Logout
+        </Button>
       </HeaderRight>
     </Header>
   );

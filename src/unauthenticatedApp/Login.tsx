@@ -3,17 +3,20 @@ import { useAuth } from "../context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from "./index";
 import { useAsync } from "../utils/useAsync";
+import { useHistory } from "react-router-dom";
 
 export const LoginScreen = (props: { onError: (error: Error) => void }) => {
   const { login } = useAuth();
   const { run, isLoading } = useAsync();
   const { onError } = props;
+  const history = useHistory();
 
   const handleSubmit = async (values: {
     username: string;
     password: string;
   }) => {
     try {
+      history.push("/homepage");
       await run(login(values));
     } catch (e: any) {
       onError(e);
@@ -54,6 +57,10 @@ export const LoginScreen = (props: { onError: (error: Error) => void }) => {
           Login
         </LongButton>
       </Form.Item>
+      <div>
+        <div>default username: admin</div>
+        <div>default password: password</div>
+      </div>
     </Form>
   );
 };

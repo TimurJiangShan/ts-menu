@@ -67,6 +67,7 @@ const InputText: React.FC<InputTextProps> = (props: InputTextProps) => {
 
 const Container = styled.div`
   padding: 24px;
+  width: 150rem;
 `;
 
 const ColContainer = styled(Col)`
