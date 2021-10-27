@@ -78,9 +78,11 @@ describe("UI TEST SUIT", () => {
 
   it("Register success", () => {
     render(
-      <AuthContext.Provider value={mockContext}>
-        <UnauthenticatedAPP />
-      </AuthContext.Provider>
+      <Router>
+        <AuthContext.Provider value={mockContext}>
+          <UnauthenticatedAPP />
+        </AuthContext.Provider>
+      </Router>
     );
     userEvent.type(screen.getByTestId("username"), "test-admin");
     userEvent.type(screen.getByTestId("password"), "pass1");

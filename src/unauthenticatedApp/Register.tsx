@@ -3,10 +3,12 @@ import { useAuth } from "../context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from "./index";
 import { useAsync } from "../utils/useAsync";
+import { useHistory } from "react-router-dom";
 
 export const RegisterScreen = (props: { onError: (error: Error) => void }) => {
   const { register } = useAuth();
   const { onError } = props;
+  const history = useHistory();
   const { run } = useAsync();
   const handleSubmit = async ({
     cpassword,
@@ -21,7 +23,8 @@ export const RegisterScreen = (props: { onError: (error: Error) => void }) => {
       return;
     }
     try {
-      run(register(values));
+      history.push("/homepage");
+      await run(register(values));
     } catch (e: any) {
       onError(e);
     }
