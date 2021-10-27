@@ -7,12 +7,8 @@ import { AuthenticatedApp } from "../AuthenticatedApp";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import { getToken, login, register } from "../auth-provider";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  withRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import HomePage from "../HomePage";
 
 jest.mock("axios");
 
@@ -31,25 +27,11 @@ describe("UI TEST SUIT", () => {
   it("Test authenticated app screen", () => {
     render(
       <AuthContext.Provider value={mockContext}>
-        <UnauthenticatedAPP />
-      </AuthContext.Provider>
-    );
-    userEvent.click(screen.getByTestId("show-login-button"));
-
-    userEvent.click(screen.getByRole("switch-button"));
-
-    userEvent.type(screen.getByTestId("login-username"), "admin");
-    userEvent.type(screen.getByTestId("login-password"), "password");
-
-    userEvent.click(screen.getByTestId("login-button"));
-
-    render(
-      <AuthContext.Provider value={mockContext}>
         <AuthenticatedApp />
       </AuthContext.Provider>
     );
 
-    expect(screen.getByText("Submit")).toBeInTheDocument();
+    expect(screen.getByText("Welcome")).toBeInTheDocument();
   });
 
   it("Logout button has been rendered", () => {
@@ -59,21 +41,6 @@ describe("UI TEST SUIT", () => {
       login: jest.fn(),
       logout: jest.fn(),
     };
-
-    render(
-      <Router>
-        <AuthContext.Provider value={mockContext}>
-          <UnauthenticatedAPP />
-        </AuthContext.Provider>
-      </Router>
-    );
-    userEvent.click(screen.getByTestId("show-login-button"));
-    userEvent.click(screen.getByRole("switch-button"));
-
-    userEvent.type(screen.getByTestId("login-username"), "admin");
-    userEvent.type(screen.getByTestId("login-password"), "password");
-
-    userEvent.click(screen.getByTestId("login-button"));
 
     render(
       <Router>
@@ -102,11 +69,12 @@ describe("TEST AUTH PROVIDER", () => {
     };
 
     render(
-      <AuthContext.Provider value={mockContext}>
-        <UnauthenticatedAPP />
-      </AuthContext.Provider>
+      <Router>
+        <AuthContext.Provider value={mockContext}>
+          <UnauthenticatedAPP />
+        </AuthContext.Provider>
+      </Router>
     );
-    userEvent.click(screen.getByTestId("show-login-button"));
 
     server.use(
       rest.post("http://localhost:8000/user/login", (req, res, ctx) =>

@@ -9,7 +9,7 @@ import { LoginScreen } from "../Login";
 import { useAsync } from "../../utils/useAsync";
 import { renderHook } from "@testing-library/react-hooks";
 import { AuthenticatedApp } from "../../AuthenticatedApp";
-
+import { BrowserRouter as Router } from "react-router-dom";
 beforeAll(() => {
   jest.spyOn(console, "error").mockImplementation(() => {});
 });
@@ -24,12 +24,15 @@ describe("UI TEST SUIT", () => {
 
   it("UnauthenticatedAPP component has been rendered", () => {
     render(
-      <AuthContext.Provider value={mockContext}>
-        <UnauthenticatedAPP />
-      </AuthContext.Provider>
+      <Router>
+        <AuthContext.Provider value={mockContext}>
+          <UnauthenticatedAPP />
+        </AuthContext.Provider>
+      </Router>
     );
-    userEvent.click(screen.getByTestId("show-login-button"));
     userEvent.click(screen.getByRole("switch-button"));
+    expect(screen.getByRole("switch-button")).toBeInTheDocument();
+    userEvent.click(screen.getByTestId("back-home-button"));
   });
 
   it("Error message has been thrown when password dont match", () => {
@@ -38,7 +41,6 @@ describe("UI TEST SUIT", () => {
         <UnauthenticatedAPP />
       </AuthContext.Provider>
     );
-    userEvent.click(screen.getByTestId("show-login-button"));
     userEvent.type(screen.getByTestId("username"), "test-admin");
     userEvent.type(screen.getByTestId("password"), "pass1");
     userEvent.type(screen.getByTestId("cpassword"), "pass2");
@@ -54,9 +56,7 @@ describe("UI TEST SUIT", () => {
         <UnauthenticatedAPP />
       </AuthContext.Provider>
     );
-    userEvent.click(screen.getByTestId("show-login-button"));
     userEvent.click(screen.getByRole("switch-button"));
-
     userEvent.type(screen.getByTestId("login-username"), "admin");
     userEvent.type(screen.getByTestId("login-password"), "password");
     act(() => {
@@ -66,14 +66,14 @@ describe("UI TEST SUIT", () => {
 
   it("Back to blank page", () => {
     render(
-      <AuthContext.Provider value={mockContext}>
-        <UnauthenticatedAPP />
-      </AuthContext.Provider>
+      <Router>
+        <AuthContext.Provider value={mockContext}>
+          <UnauthenticatedAPP />
+        </AuthContext.Provider>
+      </Router>
     );
-    userEvent.click(screen.getByTestId("show-login-button"));
 
     userEvent.click(screen.getByTestId("back-home-button"));
-    expect(screen.getByTestId("home-title")).toBeInTheDocument();
   });
 
   it("Register success", () => {
@@ -82,7 +82,6 @@ describe("UI TEST SUIT", () => {
         <UnauthenticatedAPP />
       </AuthContext.Provider>
     );
-    userEvent.click(screen.getByTestId("show-login-button"));
     userEvent.type(screen.getByTestId("username"), "test-admin");
     userEvent.type(screen.getByTestId("password"), "pass1");
     userEvent.type(screen.getByTestId("cpassword"), "pass1");
@@ -95,10 +94,9 @@ describe("UI TEST SUIT", () => {
         <UnauthenticatedAPP />
       </AuthContext.Provider>
     );
-    userEvent.click(screen.getByTestId("show-login-button"));
     userEvent.type(screen.getByTestId("username"), "test-admin");
     userEvent.type(screen.getByTestId("password"), "pass1");
-    userEvent.type(screen.getByTestId("cpassword"), "pass1");
+    userEvent.type(screen.getByTestId("cpassword"), "pass2");
     userEvent.click(screen.getByRole("register-button"));
   });
 });

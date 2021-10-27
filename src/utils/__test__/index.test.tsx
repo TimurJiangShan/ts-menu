@@ -172,7 +172,7 @@ test("useAsync to handle async tasks", async () => {
 test("Custom hook useDebounce", async () => {
   const {
     result: { all },
-  } = renderHook(() => useDebounce("test debounce", 0));
+  } = renderHook(() => useDebounce("test debounce"));
   await waitFor(() => expect(all[0]).toEqual("test debounce"));
 });
 

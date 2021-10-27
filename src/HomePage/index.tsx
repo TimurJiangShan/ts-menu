@@ -4,6 +4,12 @@ import InputText from "../InputText";
 import styled from "@emotion/styled";
 import { TextContext } from "../context/text-context";
 import { useDebounce, useDocumentTitle } from "../utils";
+import {
+  Background,
+  Header,
+  LargeCard,
+  Container,
+} from "../unauthenticatedApp";
 
 const HomePage: React.FC<{}> = () => {
   const [text, setText] = React.useState("");
@@ -19,14 +25,20 @@ const HomePage: React.FC<{}> = () => {
   return (
     <TextContext.Provider value={textValue}>
       <Container>
-        <CustomerMenu />
-        <InputText />
+        <Header />
+        <Background />
+        <LargeCard>
+          <InnerContainer>
+            <CustomerMenu />
+            <InputText />
+          </InnerContainer>
+        </LargeCard>
       </Container>
     </TextContext.Provider>
   );
 };
 
-const Container = styled.div`
+const InnerContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;

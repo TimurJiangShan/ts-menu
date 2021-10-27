@@ -6,6 +6,7 @@ import { useAuth } from "./context/auth-context";
 import { ErrorBoundary } from "./components/errorBoundary";
 import { FullPageErrorFallback, FullPageLoading } from "./components/lib";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import HomePage from "./HomePage";
 
 export default function App() {
   const { user } = useAuth();
@@ -16,13 +17,17 @@ export default function App() {
         <ErrorBoundary fallbackRender={FullPageErrorFallback}>
           <React.Suspense fallback={<FullPageLoading />}>
             <Switch>
-              {user ? (
+              {user && (
                 <Route path="/homepage">
                   <AuthenticatedApp />
                 </Route>
-              ) : (
-                <UnauthenticatedAPP />
               )}
+              <Route exact path="/">
+                <HomePage />
+              </Route>
+              <Route path="/login">
+                <UnauthenticatedAPP />
+              </Route>
             </Switch>
           </React.Suspense>
         </ErrorBoundary>

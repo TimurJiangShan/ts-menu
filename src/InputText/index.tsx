@@ -35,7 +35,7 @@ const InputText: React.FC<InputTextProps> = (props: InputTextProps) => {
     <Container role="input-text">
       <h1 id="title">Please input JSON the same format as right side</h1>
       <Row>
-        <ColContainer span={8}>
+        <ColContainer>
           <TextArea
             role="textarea-input"
             rows={20}
@@ -43,7 +43,7 @@ const InputText: React.FC<InputTextProps> = (props: InputTextProps) => {
             onChange={(e) => setTextInput(e.target.value)}
           />
         </ColContainer>
-        <ColContainer span={8}>
+        <ColContainer>
           <TextArea
             disabled={true}
             role="textarea-output"
@@ -67,11 +67,12 @@ const InputText: React.FC<InputTextProps> = (props: InputTextProps) => {
 
 const Container = styled.div`
   padding: 24px;
-  width: 150rem;
+  width: 70rem;
 `;
 
 const ColContainer = styled(Col)`
   margin: 12px;
+  width: 30rem;
 `;
 
 const SubmitButton = styled(Button)`

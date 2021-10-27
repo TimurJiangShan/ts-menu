@@ -2,11 +2,12 @@ import React from "react";
 import { useAuth } from "../context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from "./index";
+import { useAsync } from "../utils/useAsync";
 
 export const RegisterScreen = (props: { onError: (error: Error) => void }) => {
   const { register } = useAuth();
   const { onError } = props;
-
+  const { run } = useAsync();
   const handleSubmit = async ({
     cpassword,
     ...values
@@ -69,6 +70,3 @@ export const RegisterScreen = (props: { onError: (error: Error) => void }) => {
     </Form>
   );
 };
-function run(arg0: any) {
-  throw new Error("Function not implemented.");
-}

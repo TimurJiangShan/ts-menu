@@ -1,9 +1,10 @@
 import React from "react";
-import { Menu, message } from "antd";
+import { Button, Menu, message } from "antd";
 import { TextContext } from "../context/text-context";
 import { JSON_FORMAT_ERROR } from "../InputText";
 import styled from "@emotion/styled";
 import { isVoid } from "../utils";
+import { useHistory } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
@@ -99,6 +100,12 @@ const CustomerMenu: React.FC<CustomerMenuProps> = (
     }
   }, [text, onTest]);
 
+  const history = useHistory();
+
+  const handleLogin = () => {
+    history.push("/login");
+  };
+
   const renderMenu = React.useCallback((data: Array<TreeData> | TreeData) => {
     return checkTextType(data).map((item: TreeData) => {
       if (item.children) {
@@ -124,6 +131,15 @@ const CustomerMenu: React.FC<CustomerMenuProps> = (
       onClick={onTest}
     >
       {renderMenu(menuData)}
+      <Menu.Item>
+        <Button
+          data-testid="show-login-button"
+          type="link"
+          onClick={handleLogin}
+        >
+          Login
+        </Button>
+      </Menu.Item>
     </StyledMenu>
   );
 };

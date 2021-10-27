@@ -7,62 +7,45 @@ import left from "../assets/left.svg";
 import right from "../assets/right.svg";
 import styled from "@emotion/styled";
 import { useDocumentTitle } from "../utils";
+import { useHistory } from "react-router-dom";
 
 export const UnauthenticatedAPP = () => {
   const [isRegistered, setIsRegistered] = React.useState(false);
-  const [showLogin, setShowLogin] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
   useDocumentTitle("Please login to continue");
-
-  const handleShowLogin = (show: boolean) => {
-    setShowLogin(show);
+  const history = useHistory();
+  const handleGoBack = () => {
+    history.push("/");
   };
 
   return (
     <Container>
       <Header />
       <Background />
-      {!showLogin && (
-        <ShadowCard>
-          <Title data-testid="home-title">Home</Title>
-          <Button
-            onClick={() => handleShowLogin(true)}
-            data-testid="show-login-button"
-          >
-            Show Log In Form
-          </Button>
-        </ShadowCard>
-      )}
-      {showLogin && (
-        <ShadowCard>
-          <Title>{isRegistered ? "Please Login" : "Please Register"} </Title>
-
-          {error ? (
-            <Typography.Text type={"danger"}>{error.message}</Typography.Text>
-          ) : null}
-          {isRegistered ? (
-            <LoginScreen onError={setError} />
-          ) : (
-            <RegisterScreen onError={setError} />
-          )}
-          <Divider />
-          <Button
-            role="switch-button"
-            type="link"
-            onClick={() => setIsRegistered(!isRegistered)}
-          >
-            {isRegistered
-              ? "No Account? Register new account"
-              : "Already have account? Login"}
-          </Button>
-          <Button
-            data-testid="back-home-button"
-            onClick={() => handleShowLogin(false)}
-          >
-            Back
-          </Button>
-        </ShadowCard>
-      )}
+      <ShadowCard>
+        <Title>{isRegistered ? "Please Login" : "Please Register"} </Title>
+        {error ? (
+          <Typography.Text type={"danger"}>{error.message}</Typography.Text>
+        ) : null}
+        {isRegistered ? (
+          <LoginScreen onError={setError} />
+        ) : (
+          <RegisterScreen onError={setError} />
+        )}
+        <Divider />
+        <Button
+          role="switch-button"
+          type="link"
+          onClick={() => setIsRegistered(!isRegistered)}
+        >
+          {isRegistered
+            ? "No Account? Register new account"
+            : "Already have account? Login"}
+        </Button>
+        <Button data-testid="back-home-button" onClick={handleGoBack}>
+          Back
+        </Button>
+      </ShadowCard>
     </Container>
   );
 };
@@ -71,19 +54,19 @@ export const LongButton = styled(Button)`
   width: 100%;
 `;
 
-const Header = styled.header`
+export const Header = styled.header`
   background: url(${logo}) no-repeat center;
   padding: 5rem 0;
   background-size: 8rem;
   width: 100%;
 `;
 
-const Title = styled.h2`
+export const Title = styled.h2`
   margin-bottom: 2.4rem;
   color: rgb(94, 108, 132);
 `;
 
-const Background = styled.div`
+export const Background = styled.div`
   z-index: -10;
   position: absolute;
   width: 100%;
@@ -96,7 +79,7 @@ const Background = styled.div`
   background-image: url(${left}), url(${right});
 `;
 
-const ShadowCard = styled(Card)`
+export const ShadowCard = styled(Card)`
   width: 40rem;
   min-height: 56rem;
   padding: 3.2rem 4rem;
@@ -106,7 +89,17 @@ const ShadowCard = styled(Card)`
   text-align: center;
 `;
 
-const Container = styled.div`
+export const LargeCard = styled(Card)`
+  width: 120rem;
+  min-height: 56rem;
+  padding: 3.2rem 4rem;
+  border-radius: 0.3rem;
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
+  text-align: center;
+`;
+
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
