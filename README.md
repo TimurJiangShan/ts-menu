@@ -12,6 +12,24 @@
 8. Click the Log out button on the right side of the header, you can log out
 9. Test coverage is 100%.
 
+<div align=center><img src="https://github.com/TimurJiangShan/Frontend-Notes/blob/master/test-coverage.png" alt='test-coverage' width='400'/></div>
+
+11. Home Menu
+
+<div align=center><img src="https://github.com/TimurJiangShan/Frontend-Notes/blob/master/home-menu.png" alt='home-menu' width='400'/></div>
+
+11. Register
+
+<div align=center><img src="https://github.com/TimurJiangShan/Frontend-Notes/blob/master/register.png" alt='register' width='400'/></div>
+
+12. Login and back button
+
+<div align=center><img src="https://github.com/TimurJiangShan/Frontend-Notes/blob/master/login.png" alt='login' width='400'/></div>
+
+12. Nested Menu
+
+<div align=center><img src="https://github.com/TimurJiangShan/Frontend-Notes/blob/master/Menu.png" alt='menu' width='800'/></div>
+
 ## Technical stack
 
 1. React v16.8.6
